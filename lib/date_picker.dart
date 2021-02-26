@@ -137,41 +137,54 @@ class DatePicker {
       initialDate = DateTime.now();
     }
 
-    if (backgroundColor == null) backgroundColor = DateTimePickerTheme.Default.backgroundColor;
+    if (backgroundColor == null)
+      backgroundColor = DateTimePickerTheme.Default.backgroundColor;
 //    if (itemTextStyle == null)
 //      itemTextStyle = DateTimePickerTheme.Default.itemTextStyle;
 
-    if (textColor == null) textColor = DateTimePickerTheme.Default.itemTextStyle.color;
+    if (textColor == null)
+      textColor = DateTimePickerTheme.Default.itemTextStyle.color;
 
-    var datePickerDialog = AlertDialog(
-      title: Text(
-        titleText ?? "Select Date",
-        style: TextStyle(color: textColor),
-      ),
-      contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 14),
-      backgroundColor: backgroundColor,
-      content: Container(
-        width: 300,
-        child: DatePickerWidget(
-          firstDate: firstDate,
-          lastDate: lastDate,
-          initialDate: initialDate,
-          dateFormat: dateFormat,
-          locale: locale,
-          pickerTheme: DateTimePickerTheme(
-            backgroundColor: backgroundColor,
-            itemTextStyle: TextStyle(color: textColor),
-          ),
-          onChange: ((DateTime date, list) {
-            _selectedDate = date;
-          }),
-          looping: looping,
+    var datePickerDialog = Dialog(
+      child: Container(
+        color: backgroundColor,
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 14),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              titleText ?? "Select Date",
+              style: TextStyle(color: textColor),
+            ),
+            DatePickerWidget(
+              firstDate: firstDate,
+              lastDate: lastDate,
+              initialDate: initialDate,
+              dateFormat: dateFormat,
+              locale: locale,
+              pickerTheme: DateTimePickerTheme(
+                backgroundColor: backgroundColor,
+                itemTextStyle: TextStyle(color: textColor),
+              ),
+              onChange: ((DateTime date, list) {
+                _selectedDate = date;
+              }),
+              looping: looping,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: reverse
+                  ? listButtonActions.reversed.toList()
+                  : listButtonActions,
+            )
+          ],
         ),
       ),
-      actions: reverse ? listButtonActions.reversed.toList() : listButtonActions,
     );
     return showDialog(
-        useRootNavigator: false, context: context, builder: (context) => datePickerDialog);
+        useRootNavigator: false,
+        context: context,
+        builder: (context) => datePickerDialog);
   }
 }
 
@@ -220,13 +233,14 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
   @override
   AnimationController createAnimationController() {
     assert(_animationController == null);
-    _animationController = BottomSheet.createAnimationController(navigator.overlay);
+    _animationController =
+        BottomSheet.createAnimationController(navigator.overlay);
     return _animationController;
   }
 
   @override
-  Widget buildPage(
-      BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
+  Widget buildPage(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation) {
     double height = pickerTheme.pickerHeight;
     if (pickerTheme.title != null || pickerTheme.showTitle) {
       height += pickerTheme.titleHeight;
@@ -271,7 +285,8 @@ class _DatePickerComponent extends StatelessWidget {
         builder: (BuildContext context, Widget child) {
           return ClipRect(
             child: CustomSingleChildLayout(
-              delegate: _BottomPickerLayout(route.animation.value, contentHeight: _pickerHeight),
+              delegate: _BottomPickerLayout(route.animation.value,
+                  contentHeight: _pickerHeight),
               child: pickerWidget,
             ),
           );
