@@ -1,11 +1,30 @@
+## [1.0.0-nullsafety.2]
+
+* Fixed that the 1st day of the month wasn't selected (#22)
+
+## [1.0.0-nullsafety.1]
+
+* Fixed CupertinoPicker's default selection overlay bug on Flutter 2.0.0+ (#33)
+
+## [1.0.0-nullsafety.0]
+
+* Enabled null safety :)
+* Require Dart 2.12 or greater.
+
+## [0.3.2]
+* Added Thai language support.
+
+## [0.3.1+1]
+* Fixed score. 
+
 ## [0.3.1]
-* fixed bug with 'month' text losing form on smaller screens (#19) 
+* Fixed bug with 'month' text losing form on smaller screens (#19) 
 
 ## [0.3.0]
-* stable version of `0.3.0-dev.1` 
+* Stable version of `0.3.0-dev.1` 
 
 ## [0.3.0-dev.1]
-* test for bug with date changes unintended.
+* Test for bug with date changes unintended.
 
 ## [0.2.3]
 * Option to reverse action buttons.
